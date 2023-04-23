@@ -7,6 +7,7 @@ class Model {
   customEvents: Reactor;
   trainingLength = 6;
   maxErrorCount = 3;
+  historyMode = false;
 
   tasks: TasksModel;
   historyModel: HistoryModel;
@@ -19,7 +20,7 @@ class Model {
 
   restoreOrStart() {
     this.customEvents.dispatchEvent("updateCounter");
-    if (this.historyModel.getFromStore()) {
+    if (this.historyMode && this.historyModel.getFromStore()) {
       this.customEvents.dispatchEvent("updateRestore");
     } else {
       this.start();

@@ -1,10 +1,4 @@
 import { Progress, Result, Task } from "../models/tasks-model";
-import { ButtonView } from "./button-view";
-import { CounterView } from "./counter-view";
-import { ModalView } from "./modal-view";
-import { RestorelView } from "./restore-view";
-import { ResultlView } from "./result-view";
-import { TaskView } from "./task-view";
 
 interface ViewInterface {
   addSelectLetterHandler: (handler: (id: string) => void) => void;
@@ -21,55 +15,86 @@ interface ViewInterface {
 }
 
 class View implements ViewInterface {
-  buttons: Map<string, ButtonView> = new Map();
-  modal: ModalView;
-  task: TaskView;
-  result: ResultlView;
-  restore: RestorelView;
-  counter: CounterView;
+  taskNumber = 1;
+  trainingLength = 6;
+  task: Task | null = null;
+  hasError = false;
+  result: Result | null = null;
 
-  constructor() {
-    this.task = new TaskView();
-    this.counter = new CounterView();
-    this.modal = new ModalView();
-    this.result = new ResultlView(this.modal);
-    this.restore = new RestorelView(this.modal);
+  updateView() {
+    console.clear();
+    console.info("English Vocabulary Trainer");
+    console.info("Form a valid English word using the given letters");
+    console.info(`Question ${this.taskNumber} of ${this.trainingLength}`);
+    console.info(`. . . . . . . . `);
+    let answer = `answer => `;
+    let letters = `letters => `;
+    if (this.task) {
+      this.task.solved.forEach((letter) => {
+        answer += ` [ ${letter.value.toLocaleUpperCase()} ]`;
+      });
+      this.task.letters.forEach((letter) => {
+        letters += ` [ ${letter.value.toUpperCase()} ]`;
+      });
+    }
+    console.log(answer);
+    console.log(letters);
+    if (this.hasError) {
+      console.log("Error!");
+    } else {
+      console.log("");
+    }
   }
 
   updateCountView(progress: Progress) {
-    this.counter.updateView(progress.taskNumber, progress.trainingLength);
+    this.taskNumber = progress.taskNumber;
+    this.trainingLength = progress.trainingLength;
+    this.updateView();
   }
 
   updateTaskView(task: Task) {
-    this.task.updateView(task);
+    this.task = task;
+    this.updateView();
   }
 
   error(id: string) {
-    this.task.error(id);
+    this.hasError = true;
+    this.updateView();
+    this.hasError = false;
   }
 
   addSelectLetterHandler(handler: (id: string) => void) {
-    this.task.addSelectLetterHandler(handler);
+    // NA
   }
 
   addEnterLetterHandler(handler: (id: string) => void) {
-    this.task.addEnterLetterHandler(handler);
+    document.addEventListener("keydown", (event) => {
+      const symbol = event.key.toLocaleLowerCase();
+      if (/^[a-z]$/.test(symbol) && !event.metaKey && !event.ctrlKey) {
+        handler(symbol);
+      }
+    });
   }
 
   updateResultView(result: Result, open: boolean) {
-    this.result.updateView(result, open);
+    if (open) {
+      this.result = result;
+    } else {
+      this.result = null;
+    }
+    this.updateView();
   }
 
   updateRestoreView(open: boolean) {
-    this.restore.updateView(open);
+    // NA
   }
 
   closeModal() {
-    this.modal.close();
+    // NA
   }
 
   addModalButtonHandler(handler: (id: string) => void) {
-    this.modal.addButtonHandler(handler);
+    // NA
   }
 
   addHistoryHandler(handler: () => void) {
