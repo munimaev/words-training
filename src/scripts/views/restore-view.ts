@@ -1,5 +1,4 @@
-import { Result } from "../models";
-import { ModalView } from "./modal_view";
+import { ModalView } from "./modal-view";
 
 export class RestorelView {
   modal: ModalView;

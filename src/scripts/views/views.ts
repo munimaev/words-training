@@ -1,16 +1,14 @@
-import { consts } from "../constants";
-import { Letter, Progress, Result, Task } from "../models";
-import { ButtonView } from "./button_view";
-import { CounterView } from "./counter_view";
-import { ModalView } from "./modal_view";
-import { RestorelView } from "./restore_view";
-import { ResultlView } from "./result_view";
-import { TaskView } from "./task_view";
+import { Progress, Result, Task } from "../models/tasks-model";
+import { ButtonView } from "./button-view";
+import { CounterView } from "./counter-view";
+import { ModalView } from "./modal-view";
+import { RestorelView } from "./restore-view";
+import { ResultlView } from "./result-view";
+import { TaskView } from "./task-view";
 
 class View {
   buttons: Map<string, ButtonView> = new Map();
   modal: ModalView;
-  trainingId: number = 0;
   task: TaskView;
   result: ResultlView;
   restore: RestorelView;
@@ -25,7 +23,6 @@ class View {
   }
 
   updateCountView(progress: Progress) {
-    this.trainingId = progress.trainingId;
     this.counter.updateView(progress.taskNumber, progress.trainingLength);
   }
 
@@ -37,16 +34,16 @@ class View {
     this.task.error(id);
   }
 
-  addSelectLetterHandler(handler: (id: any) => void) {
+  addSelectLetterHandler(handler: (id: string) => void) {
     this.task.addSelectLetterHandler(handler);
   }
 
-  addEnterLetterHandler(handler: (id: any) => void) {
+  addEnterLetterHandler(handler: (id: string) => void) {
     this.task.addEnterLetterHandler(handler);
   }
 
   updateResultView(result: Result, open: boolean) {
-    this.result.updateView(result);
+    this.result.updateView(result, open);
   }
 
   updateRestoreView(open: boolean) {
@@ -57,7 +54,7 @@ class View {
     this.modal.close();
   }
 
-  addModalButtonHandler(handler: (id: any) => void) {
+  addModalButtonHandler(handler: (id: string) => void) {
     this.modal.addButtonHandler(handler);
   }
 

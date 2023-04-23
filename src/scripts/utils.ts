@@ -13,16 +13,21 @@ class CustomEvent {
   }
 }
 
-class Reactor {
+class EventResolver {
   events: Record<string, CustomEvent> = {};
 
-  registerEvent(eventName: string) {
+  registerEvent(eventName: string, callback?: EventCallBack) {
     const event = new CustomEvent(eventName);
     this.events[eventName] = event;
+    if (callback) {
+      this.addEventListener(eventName, callback);
+    }
   }
+
   addEventListener(eventName: string, callback: EventCallBack) {
     this.events[eventName].registerCallback(callback);
   }
+
   dispatchEvent(eventName: string, eventArgs: unknown = null) {
     this.events[eventName].callbacks.forEach(function (callback) {
       callback(eventArgs);
@@ -30,7 +35,7 @@ class Reactor {
   }
 }
 
-export { CustomEvent, Reactor };
+export { CustomEvent, EventResolver as Reactor };
 
 const list = [
   "apple",

@@ -18,7 +18,7 @@ export class ModalView {
   title: HTMLHeadingElement;
   body: HTMLDivElement;
   footer: HTMLDivElement;
-  show: boolean = false;
+  show = false;
   handler: null | ((id: string) => void) = null;
 
   constructor() {
@@ -35,25 +35,25 @@ export class ModalView {
     return wrapper;
   }
 
-  createTitle() {
+  createTitle(): HTMLHeadingElement {
     const title = document.createElement("h5");
     title.className = "modal-title";
     return title;
   }
 
-  createBody() {
+  createBody(): HTMLDivElement {
     const body = document.createElement("div");
     body.className = "modal-body";
     return body;
   }
 
-  createFooter() {
+  createFooter(): HTMLDivElement {
     const footer = document.createElement("div");
     footer.className = "modal-footer";
     return footer;
   }
 
-  createModal() {
+  createModal(): HTMLDivElement {
     const modal = document.createElement("div");
     modal.className = "modal fade";
     modal.style.cssText = `display: block`;
@@ -77,7 +77,7 @@ export class ModalView {
     return modal;
   }
 
-  open(): void {
+  open() {
     if (!this.show) {
       this.show = true;
       document.body.append(this.modal);
@@ -89,7 +89,7 @@ export class ModalView {
     }
   }
 
-  close(): void {
+  close() {
     if (this.show) {
       this.show = false;
       this.wrapper.classList.remove("show");

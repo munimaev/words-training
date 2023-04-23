@@ -19,7 +19,7 @@ module.exports = {
     ],
   } /* determines how different module types will be treated */,
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "./docs"),
     filename: "main.js",
   } /* where to output your bundle */,
   mode: "development" /* for built-in optimizations -> 'none' | 'development' | 

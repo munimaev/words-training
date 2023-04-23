@@ -1,9 +1,10 @@
 import { consts } from "../constants";
-import { Letter } from "../models";
+import { Letter } from "../models/tasks-model";
 
 export class ButtonView {
   element: HTMLButtonElement;
   status: "primary" | "success" | "failed" = "primary";
+
   constructor(letter: Letter) {
     this.element = document.createElement("button");
     this.element.setAttribute("type", "button");

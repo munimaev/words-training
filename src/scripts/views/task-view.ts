@@ -1,5 +1,5 @@
-import { Task } from "../models";
-import { ButtonView } from "./button_view";
+import { Task } from "../models/tasks-model";
+import { ButtonView } from "./button-view";
 
 export class TaskView {
   lettersWrapper: HTMLElement;

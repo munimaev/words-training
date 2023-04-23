@@ -1,6 +1,3 @@
-import { Task } from "../models";
-import { ButtonView } from "./button_view";
-
 export class CounterView {
   currentQuestion: HTMLElement;
   totalQuestions: HTMLElement;

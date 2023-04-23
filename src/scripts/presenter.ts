@@ -1,5 +1,5 @@
 import { View } from "./views/views";
-import { Model } from "./models";
+import { Model } from "./models/models";
 import { Reactor } from "./utils";
 
 class Presenter {
@@ -37,33 +37,27 @@ class Presenter {
       }
     });
 
-    this.customEvents.registerEvent("updateTask");
-    this.customEvents.addEventListener("updateTask", function () {
+    this.customEvents.registerEvent("updateTask", function () {
       view.updateTaskView(model.getTaskToDisplay());
     });
 
-    this.customEvents.registerEvent("updateResults");
-    this.customEvents.addEventListener("updateResults", function () {
+    this.customEvents.registerEvent("updateResults", function () {
       view.updateResultView(model.getResults(), true);
     });
 
-    this.customEvents.registerEvent("updateRestore");
-    this.customEvents.addEventListener("updateRestore", function () {
+    this.customEvents.registerEvent("updateRestore", function () {
       view.updateRestoreView(true);
     });
 
-    this.customEvents.registerEvent("updateCounter");
-    this.customEvents.addEventListener("updateCounter", function () {
+    this.customEvents.registerEvent("updateCounter", function () {
       view.updateCountView(model.getProgressToDisplay());
     });
 
-    this.customEvents.registerEvent("error");
-    this.customEvents.addEventListener("error", function (id) {
+    this.customEvents.registerEvent("error", function (id) {
       view.error(id as string);
     });
 
-    this.customEvents.registerEvent("closeModal");
-    this.customEvents.addEventListener("closeModal", function () {
+    this.customEvents.registerEvent("closeModal", function () {
       view.closeModal();
     });
 
