@@ -6,7 +6,21 @@ import { RestorelView } from "./restore-view";
 import { ResultlView } from "./result-view";
 import { TaskView } from "./task-view";
 
-class View {
+interface ViewInterface {
+  addSelectLetterHandler: (handler: (id: string) => void) => void;
+  addEnterLetterHandler: (handler: (id: string) => void) => void;
+  addHistoryHandler: (handler: () => void) => void;
+  addModalButtonHandler: (handler: (id: string) => void) => void;
+
+  updateTaskView: (task: Task) => void;
+  updateResultView: (result: Result, open: boolean) => void;
+  updateRestoreView: (open: boolean) => void;
+  updateCountView: (progress: Progress) => void;
+  error: (id: string) => void;
+  closeModal: () => void;
+}
+
+class View implements ViewInterface {
   buttons: Map<string, ButtonView> = new Map();
   modal: ModalView;
   task: TaskView;
