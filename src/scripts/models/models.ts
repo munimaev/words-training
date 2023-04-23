@@ -93,11 +93,12 @@ class Model {
       this.customEvents.dispatchEvent("updateTask");
       this.moveNextIfCurrentIsSolved();
     } else {
-      this.increaseErrorCount();
+      const letterId = this.tasks.getLetterIdBySymbol(symbol);
+      this.increaseErrorCount(letterId);
     }
   }
 
-  increaseErrorCount(letterId?: string) {
+  increaseErrorCount(letterId: string | null) {
     const task = this.tasks.getCurrent();
     this.updateTaskAndSave({ errorCount: task.errorCount + 1 });
     if (task.errorCount >= this.maxErrorCount) {

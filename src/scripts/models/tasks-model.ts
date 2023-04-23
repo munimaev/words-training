@@ -93,6 +93,12 @@ export class TasksModel {
     return result;
   }
 
+  getLetterIdBySymbol(symbol: string): string | null {
+    const { letters } = this.getCurrent();
+    const letter = letters.find((letter) => letter.value === symbol);
+    return letter ? letter.id : null;
+  }
+
   start() {
     const trainingId = getRandomId();
     const words = getRandomWords(this.trainingLength);
@@ -167,10 +173,12 @@ export class TasksModel {
       letters,
     };
   }
+
   isCurrentSolved(): boolean {
     const task = this.getCurrent();
     return task.solved.length === task.answer.length;
   }
+
   isHasNoRoomForError(maxErrorCount: number): boolean {
     const task = this.getCurrent();
     if (!task || task.errorCount >= maxErrorCount) {
