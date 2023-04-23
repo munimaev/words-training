@@ -173,7 +173,7 @@ var Model = /*#__PURE__*/function () {
     key: "start",
     value: function start() {
       if (history.state !== null) {
-        history.pushState(null, "");
+        history.replaceState(null, "");
       }
       this.tasks.start();
       this.updateAllViewAndCloseModal();
