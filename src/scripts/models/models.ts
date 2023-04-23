@@ -28,7 +28,7 @@ class Model {
 
   start() {
     if (history.state !== null) {
-      history.pushState(null, "");
+      history.replaceState(null, "");
     }
     this.tasks.start();
     this.updateAllViewAndCloseModal();
